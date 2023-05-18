@@ -1,5 +1,6 @@
 package com.example.HospitalTokensGenerator.Services;
 
+import com.example.HospitalTokensGenerator.DTOs.AppointmentDto;
 import com.example.HospitalTokensGenerator.Entities.PatientEntity;
 import com.example.HospitalTokensGenerator.Entities.TokenEntity;
 import com.example.HospitalTokensGenerator.Repositories.PatientRepository;
@@ -16,10 +17,11 @@ public class AppointmentService {
     @Autowired
     TokenRepository tokenRepository;
 
-    public String appointment(Long tokenId) throws Exception {
+    public String appointment(AppointmentDto appointmentDto) throws Exception {
         try {
-            TokenEntity token = tokenRepository.findById(tokenId).get();
+            TokenEntity token = tokenRepository.findById(appointmentDto.getTokenId()).get();
             PatientEntity patient = patientRepository.findById(token.getPatient().getId()).get();
+            token.setSuggestion(appointmentDto.getSuggestion());
             token.setActive(false);
             patient.setActiveTokenEntity(token);
             patient.setHasActiveToken(false);

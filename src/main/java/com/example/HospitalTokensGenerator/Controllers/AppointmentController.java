@@ -1,5 +1,6 @@
 package com.example.HospitalTokensGenerator.Controllers;
 
+import com.example.HospitalTokensGenerator.DTOs.AppointmentDto;
 import com.example.HospitalTokensGenerator.Services.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,9 +15,9 @@ public class AppointmentController {
     AppointmentService appointmentService;
 
     @PutMapping("/completed")
-    public ResponseEntity<String> appointment(@RequestParam Long tokenId) {
+    public ResponseEntity<String> appointment(@RequestBody AppointmentDto appointmentDto) {
         try {
-            String response = appointmentService.appointment(tokenId);
+            String response = appointmentService.appointment(appointmentDto);
             return new ResponseEntity<>(response, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.EXPECTATION_FAILED);

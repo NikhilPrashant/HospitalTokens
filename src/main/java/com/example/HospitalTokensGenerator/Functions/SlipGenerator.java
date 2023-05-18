@@ -38,15 +38,11 @@ public class SlipGenerator {
     }
 
     public static void dayChangeResetSlip() {
-        System.out.println(2);
         SlipEntity slipEntity = slipRepository.findById(1).get();
-        System.out.println(slipEntity);
         if (!slipRepository.existsById(1)) {
-            System.out.println(3);
             slipRepository.save(new SlipEntity(1, 1, LocalDate.now()));
             return;
         }
-        System.out.println(4);
         SlipEntity slip = slipRepository.findById(1).get();
         LocalDate currDate = slip.getLocalDate();
 //        if (!LocalDate.of(2023, 05, 20).equals(LocalDate.of(2023, 05, 20))) {

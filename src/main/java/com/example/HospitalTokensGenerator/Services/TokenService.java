@@ -30,6 +30,7 @@ public class TokenService {
             Counters counter = Counters.valueOf(tokenEntryDto.getCounter());
             TokenEntity token = TokenConverter.tokenDtoToEntity(patient, healthcard, counter);
             token.setTokenId();
+            System.out.println("Here");
             //Minimize or Shift
             token.setActive(true);
             patient.setHasActiveToken(true);
