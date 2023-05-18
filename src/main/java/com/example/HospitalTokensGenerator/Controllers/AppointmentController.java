@@ -1,24 +1,22 @@
 package com.example.HospitalTokensGenerator.Controllers;
 
-import com.example.HospitalTokensGenerator.DTOs.TokenEntryDto;
-import com.example.HospitalTokensGenerator.Repositories.TokenRepository;
-import com.example.HospitalTokensGenerator.Services.TokenService;
+import com.example.HospitalTokensGenerator.Services.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/token")
-public class TokenController {
+@RequestMapping("/appointment")
+public class AppointmentController {
 
     @Autowired
-    TokenService tokenService;
+    AppointmentService appointmentService;
 
-    @PostMapping("/add")
-    public ResponseEntity<String> createToken(@RequestBody TokenEntryDto tokenEntryDto) {
+    @PutMapping("/completed")
+    public ResponseEntity<String> appointment(@RequestParam Long tokenId) {
         try {
-            String response = tokenService.createToken(tokenEntryDto);
+            String response = appointmentService.appointment(tokenId);
             return new ResponseEntity<>(response, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.EXPECTATION_FAILED);

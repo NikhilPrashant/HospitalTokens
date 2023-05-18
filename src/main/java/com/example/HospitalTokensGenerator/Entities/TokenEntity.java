@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 
@@ -34,6 +35,8 @@ public class TokenEntity {
 
     private Counters counter;
 
+    private int tokenNumber;
+
     private LocalDate creationDate;
 
     private boolean isActive;
@@ -48,6 +51,13 @@ public class TokenEntity {
     }
 
     public void setTokenId() {
-        this.tokenId = "" + creationDate + "_" + SlipGenerator.getCurrSlip() + "_" + counter.getId() + "_" + patient.getId() + "_" + healthcard.getHipId();
+        this.tokenNumber = SlipGenerator.getCurrSlip();
+        this.tokenId = new StringBuilder()
+                .append(creationDate).append("_")
+                .append(tokenNumber)
+                .append("_").append(counter.getId())
+                .append("_").append(patient.getId())
+                .append("_").append(healthcard.getHipId())
+                .toString();
     }
 }

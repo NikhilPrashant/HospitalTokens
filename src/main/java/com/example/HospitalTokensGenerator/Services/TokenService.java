@@ -25,6 +25,7 @@ public class TokenService {
     public String createToken(TokenEntryDto tokenEntryDto) throws Exception {
         try {
             PatientEntity patient = patientRepository.findById(tokenEntryDto.getPatientId()).get();
+            if (patient.isHasActiveToken()) throw new Exception("Already has active token");
             HealthcardEntity healthcard = healthCardRepository.findById(patient.getHealthcardEntity().getHipId()).get();
             Counters counter = Counters.valueOf(tokenEntryDto.getCounter());
             TokenEntity token = TokenConverter.tokenDtoToEntity(patient, healthcard, counter);
